@@ -1,0 +1,29 @@
+package com.thanhtan.groceryshop.controller;
+
+import com.thanhtan.groceryshop.dto.request.CategoryRequest;
+import com.thanhtan.groceryshop.dto.response.ApiResponse;
+import com.thanhtan.groceryshop.dto.response.CategoryResponse;
+import com.thanhtan.groceryshop.service.ICategoryService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+@RequestMapping("/api/v1/categories")
+@RequiredArgsConstructor
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class CategoryController {
+
+    ICategoryService categoryService;
+
+    @PostMapping
+    public ApiResponse<CategoryResponse> createCategory(@RequestBody  CategoryRequest category) {
+        return ApiResponse.<CategoryResponse>builder()
+                .result(categoryService.createCategory(category))
+                .build();
+    }
+}
