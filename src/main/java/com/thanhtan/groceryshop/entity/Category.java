@@ -1,6 +1,6 @@
 package com.thanhtan.groceryshop.entity;
 
-import com.thanhtan.groceryshop.Status;
+import com.thanhtan.groceryshop.enums.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter

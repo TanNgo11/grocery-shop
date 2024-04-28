@@ -10,5 +10,6 @@ import org.mapstruct.Mapping;
 public interface ProductMapper {
     @Mapping(target = "category", ignore = true)
     Product toProduct(ProductRequest request);
+
     ProductResponse toProductResponse(Product product);
 }

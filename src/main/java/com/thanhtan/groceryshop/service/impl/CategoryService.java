@@ -12,6 +12,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -20,6 +23,13 @@ public class CategoryService implements ICategoryService {
     CategoryRepository categoryRepository;
 
     CategoryMapper categoryMapper;
+
+    @Override
+    public List<CategoryResponse> findAll() {
+            List<Category> listCategory = categoryRepository.findAll();
+
+        return listCategory.stream().map(categoryMapper::toCategoryResponse).collect(Collectors.toList());
+    }
 
     @Override
     public CategoryResponse createCategory(CategoryRequest category) {

@@ -15,18 +15,16 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Product extends BaseEntity{
-
-    String name;
-    String description;
-    double price;
+public class OrderItem extends BaseEntity {
     int quantity;
-    String image;
-    String slug;
+    double price;
+    double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

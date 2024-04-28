@@ -10,6 +10,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -21,9 +23,15 @@ public class CategoryController {
     ICategoryService categoryService;
 
     @PostMapping
-    public ApiResponse<CategoryResponse> createCategory(@RequestBody  CategoryRequest category) {
+    public ApiResponse<CategoryResponse> createCategory(@RequestBody CategoryRequest category) {
         return ApiResponse.<CategoryResponse>builder()
                 .result(categoryService.createCategory(category))
+                .build();
+    }
+    @GetMapping
+    public ApiResponse<List<CategoryResponse>> getCategories() {
+        return ApiResponse.<List<CategoryResponse>>builder()
+                .result(categoryService.findAll())
                 .build();
     }
 }

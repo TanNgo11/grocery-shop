@@ -16,5 +16,6 @@ public class ProductResponse extends BaseDTO{
     double price;
     int quantity;
     String image;
+    String slug;
     CategoryResponse category;
 }

@@ -1,6 +1,6 @@
 package com.thanhtan.groceryshop.dto.request;
 
-import com.thanhtan.groceryshop.Status;
+import com.thanhtan.groceryshop.enums.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
