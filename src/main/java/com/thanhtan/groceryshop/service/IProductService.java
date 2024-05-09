@@ -13,6 +13,8 @@ public interface IProductService {
 
     List<ProductResponse> findByCategory(String categoryName);
 
+    List<ProductResponse> find5ProductsByCategory(String categoryName);
+
     ProductResponse findById(Long id);
 
     ProductResponse findBySlug(String slug);

@@ -9,6 +9,7 @@ import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 
@@ -25,6 +26,6 @@ public class OrderRequest implements Serializable {
     @NotBlank(message = "FILL_IN_THE_INPUT_FIELD")
     String address;
     String note;
-    Set<OrderItem> orderItems;
+    List<OrderItemRequest> orderItems;
 
 }

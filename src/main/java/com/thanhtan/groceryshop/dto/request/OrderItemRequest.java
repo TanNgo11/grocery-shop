@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderItemRequest implements Serializable {
-    Long id;
+    Long productId;
     int quantity;
     double price;
 }

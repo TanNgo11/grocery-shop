@@ -18,8 +18,9 @@ public enum ErrorCode {
     INVALID_DOB(1008, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     RESOURCE_NOT_FOUND(1010, "Resource not found", HttpStatus.NOT_FOUND),
     FILL_IN_THE_INPUT_FIELD (1011,"Fill in the input field", HttpStatus.BAD_REQUEST),
-
-    ;
+    ALREADY_RATED(1011,"User has already rated this product." , HttpStatus.FORBIDDEN),
+    PRODUCT_QUANTITY_EXCEEDED(1012,"The requested quantity exceeds available stock." , HttpStatus.BAD_REQUEST),
+    RESOURCE_EXISTED(1013, "Resource existed", HttpStatus.BAD_REQUEST);
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {
         this.code = code;

@@ -6,7 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -16,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     String customerName;
@@ -26,11 +27,11 @@ public class Order extends BaseEntity {
     String note;
 
 
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<OrderItem> orderItems = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
-    private OrderStatus orderStatus;
+    OrderStatus orderStatus;
 
 }

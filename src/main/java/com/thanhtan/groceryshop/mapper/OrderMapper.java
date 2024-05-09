@@ -5,17 +5,16 @@ import com.thanhtan.groceryshop.entity.Order;
 import com.thanhtan.groceryshop.dto.response.OrderResponse;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = OrderItemMapper.class)
 public interface OrderMapper {
-    Order toEntity(OrderRequest orderRequest);
+    @Mapping(target = "orderItems", source = "orderItems")
+    Order toOrder(OrderRequest orderRequest);
+
+    @Mapping(target = "orderItems", source = "orderItems")
+    OrderResponse toOrderResponse(Order order);
 
 
-
-
-
-
-
-    OrderResponse toDto1(Order order);
-
-
+    List<OrderResponse> toOrderResponseList(List<Order> allOrders);
 }

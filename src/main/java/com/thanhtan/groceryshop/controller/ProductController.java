@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
 import static com.thanhtan.groceryshop.constant.PathConstant.*;
 
 
@@ -29,10 +30,11 @@ public class ProductController {
 
     @GetMapping
     public ApiResponse<List<ProductResponse>> getProducts() {
-       return ApiResponse.<List<ProductResponse>>builder()
-               .result(productService.findAll())
-               .build();
+        return ApiResponse.<List<ProductResponse>>builder()
+                .result(productService.findAll())
+                .build();
     }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<ProductResponse> createProduct(@RequestPart("product") String productStr,
                                                       @RequestPart("file") MultipartFile file) throws IOException {
@@ -59,19 +61,28 @@ public class ProductController {
     }
 
     @GetMapping("/category/{categoryName}")
-    public ApiResponse<List<ProductResponse>> getProductsByCategory(@PathVariable String categoryName) {
+    public ApiResponse<List<ProductResponse>> getProductsByCategory(@PathVariable String categoryName, @RequestParam(required = false) Integer limit) {
+        if(limit != null) {
+            return ApiResponse.<List<ProductResponse>>builder()
+                    .result(productService.find5ProductsByCategory(categoryName))
+                    .build();
+        }
+
         return ApiResponse.<List<ProductResponse>>builder()
                 .result(productService.findByCategory(categoryName))
                 .build();
     }
 
-        @GetMapping("/list")
-        public ApiResponse<List<ProductResponse>> getProductsByIds(@RequestParam List<Long> ids) {
-            List<ProductResponse> products = ids.stream()
-                    .map(productService::findById)
-                    .toList();
-            return ApiResponse.<List<ProductResponse>>builder()
-                    .result(products)
-                    .build();
-        }
+    @GetMapping("/list")
+    public ApiResponse<List<ProductResponse>> getProductsByIds(@RequestParam List<Long> ids) {
+        List<ProductResponse> products = ids.stream()
+                .map(productService::findById)
+                .toList();
+        return ApiResponse.<List<ProductResponse>>builder()
+                .result(products)
+                .build();
+    }
+
+
+
 }

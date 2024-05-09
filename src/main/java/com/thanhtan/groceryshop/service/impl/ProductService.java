@@ -1,8 +1,11 @@
 package com.thanhtan.groceryshop.service.impl;
 
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.thanhtan.groceryshop.dto.request.ProductRequest;
 import com.thanhtan.groceryshop.dto.response.ProductResponse;
 import com.thanhtan.groceryshop.entity.Product;
+import com.thanhtan.groceryshop.entity.QProduct;
 import com.thanhtan.groceryshop.exception.ErrorCode;
 import com.thanhtan.groceryshop.exception.ResourceNotFound;
 import com.thanhtan.groceryshop.mapper.ProductMapper;
@@ -35,10 +38,30 @@ public class ProductService implements IProductService {
 
     CloudinaryService cloudinaryService;
 
+    JPAQueryFactory queryFactory;
+
     @Override
-    public List<ProductResponse> findByCategory(String categoryName) {
-        return productRepository.findByCategoryName(categoryName).stream().map(productMapper::toProductResponse).collect(Collectors.toList());
+    public List<ProductResponse> findByCategory(String category) {
+        return productRepository.findByCategoryName(category).stream()
+                .map(productMapper::toProductResponse)
+                .toList();
     }
+
+    @Override
+    public List<ProductResponse> find5ProductsByCategory(String categoryName) {
+        QProduct qProduct = QProduct.product;
+        List<Product> products = queryFactory
+                .select(Projections.bean(Product.class, qProduct.id, qProduct.name, qProduct.price, qProduct.image, qProduct.slug))
+                .from(qProduct)
+                .where(qProduct.category.name.eq(categoryName))
+                .limit(5)
+                .fetch();
+
+        return products.stream()
+                .map(productMapper::toProductResponse)
+                .toList();
+    }
+
 
     @Override
     public ProductResponse findById(Long id) {

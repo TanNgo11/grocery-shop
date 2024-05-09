@@ -1,7 +1,8 @@
 package com.thanhtan.groceryshop.dto.response;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -10,11 +11,15 @@ import java.util.Date;
 /**
  * DTO for {@link com.thanhtan.groceryshop.entity.OrderItem}
  */
-@Value
-@SuperBuilder
-public class OrderItemResponse extends BaseDTO implements Serializable {
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class OrderItemResponse implements Serializable {
+    String productName;
     int quantity;
     double price;
-    double total;
+
 }
